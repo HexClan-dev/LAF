@@ -62,7 +62,8 @@ class LostObject
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\AdmStaffLF", inversedBy="lostObject")
+     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\AdmStaffLF", inversedBy="lostObject",cascade={"persist"})
+     *
      */
     private $admStafflf;
 
@@ -80,6 +81,14 @@ class LostObject
     public function setLostPlace($lostPlace)
     {
         $this->lostPlace = $lostPlace;
+    }
+
+    /**
+     * @param mixed $admStafflf
+     */
+    public function setAdmStafflf($admStafflf)
+    {
+        $this->admStafflf = $admStafflf;
     }
 
     /**

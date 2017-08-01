@@ -34,7 +34,6 @@ class AdmStaffLF
     private $id;
 
 
-
     /**
      * @ORM\Column(type="string")
      */
@@ -53,7 +52,7 @@ class AdmStaffLF
 
 
     /**
-     * @ORM\Column(type="date")
+     * @ORM\Column(type="string")
      */
     private $AcademicYear;
 
@@ -133,7 +132,7 @@ class AdmStaffLF
     }
 
     /**
-     * @return Date
+     * @return string
      */
     public function getAcademicYear()
     {
@@ -141,7 +140,7 @@ class AdmStaffLF
     }
 
     /**
-     * @param Date $AcademicYear
+     * @param string $AcademicYear
      */
     public function setAcademicYear($AcademicYear)
     {

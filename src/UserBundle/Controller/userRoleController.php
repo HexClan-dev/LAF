@@ -26,6 +26,8 @@ class userRoleController extends Controller
         $listLost = [];
 
         /** @var LostObject $lost */
+
+
         foreach ($lostObjects as $lost) {
             $listLost[] = [
                 "id" => $lost->getId(),
@@ -121,7 +123,7 @@ class userRoleController extends Controller
 
 
         return $this->render(
-            "UserBundle:user:form_add.html.twig",
+            "UserBundle:user:form_edit.html.twig",
             [
                 "form"=>$form->createView(),
                 "user"=>$person

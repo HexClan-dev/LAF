@@ -1,8 +1,8 @@
-{% extends "@User/root/userview/homepage.html.twig"%}
+{% extends "@User/root/homepage.html.twig"%}
 
 
 {% block buttons_group %}
-    <a href="{{ path('user_main_page',{"name" : user.id }) }}">Cancel</a>
+    <a href="{{ path('user_main_page',{"id" : user.id }) }}">Cancel</a>
 {% endblock %}
 
 

@@ -1,5 +1,4 @@
-{% extends "@User/root/userview/homepage.html.twig"%}
-
+{% extends "@User/root/homepage.html.twig" %}
 
 {% block title %}
     Welcome {{ user.name }} !!
@@ -7,48 +6,73 @@
 
 
 
-{% block personal_details %}
-    {{ parent() }}
+{% block user_details %}
+    <div id="image">
+        <img src="{#{{ path(user.image) }}#}" width="50" height="100px" />
+    </div>
+
+    <div>
+        <dl>
+
+            <dt>Name</dt>
+            <dd> {{ user.name }} </dd>
+            <dt>Surname</dt>
+            <dd>{{  user.surname }}</dd>
+            <dt> Academic Year </dt>
+            <dd> {{ user.academicYear }}</dd>
+            <dt> Email </dt>
+            <dd> {{ user.email }} </dd>
+
+        </dl>
+
+    </div>
+
 {% endblock  %}
 
 
 {% block table_show %}
-    <table>
-        <thead>
-        <tr>
-            <th> Type </th>
-            <th> Description </th>
-            <th> Lost Place </th>
-            <th> Date </th>
-            <th> Found </th>
-            <th></th>
-        </tr>
-        </thead>
-        {% if cnt == 0 %}
-            <p> You have no lost objects</p>>
-        {% else %}
-            {% for list in lostObject %}
-                <tr>
-                    <td> {{ list.type }} </td>
-                    <td> {{ list.description }} </td>
-                    <td> {{ list.lostPlace }} </td>
-                    <td> {{ list.lostDate|date("y/m/d h:i:s") }} </td>
-                    <td>
-                        {% if list.isFound %}
-                            Yes
-                        {% else %}
-                            No
-                        {% endif %}
-                    </td>
-                    <td><a href="{{ path('edit_lost_form', {'id': list.id }) }}" > Edit </a> <span></span>
-                        <a href="{{ path('delete_lost_form', {'id': list.id }) }}" > Delete </a> </td>
-                </tr>
 
-            {% endfor %}
+    <p> The list of the lost Items </p>
+    <div>
+        <label>Serarch: <input type="search" /></label>
+    </div>
 
-        {% endif %}
+    <div id="table_list">
+        <table>
+            <thead>
+            <tr>
+                <th> Type </th>
+                <th> Description </th>
+                <th> Lost Place </th>
+                <th> Date </th>
+                <th> Found </th>
+                <th></th>
+            </tr>
+            </thead>
+            {% if cnt == 0 %}
+                <p> You have no lost objects</p>
+            {% else %}
+                {% for list in lostObject %}
+                    <tr>
+                        <td> {{ list.type }} </td>
+                        <td> {{ list.description }} </td>
+                        <td> {{ list.lostPlace }} </td>
+                        <td> {{ list.lostDate|date("y/m/d h:i:s") }} </td>
+                         <td>
+                            {% if list.isFound %}
+                                <a href="{{ path('isFound_lost_object',{'id': list.id }) }}"> No </a>
+                            {% else %}
+                                <a href="{{ path('isFound_lost_object',{ 'id': list.id }) }}"> Yes </a>
+                            {% endif %}
+                        </td>
+                    </tr>
 
-    </table>
+                {% endfor %}
+
+            {% endif %}
+
+        </table>
+    </div>
 {% endblock %}
 
 

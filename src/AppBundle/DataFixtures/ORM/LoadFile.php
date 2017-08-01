@@ -12,6 +12,7 @@ use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\DateTime;
+use UserBundle\Entity\AdmStaffLF;
 use UserBundle\Entity\Person;
 use UserBundle\Entity\LostObject;
 
@@ -34,12 +35,20 @@ class LoadFile implements FixtureInterface
         $user->setMobphone("0674912156");
 
 
+        $adm  = new AdmStaffLF();
+        $adm->setName("Meitn");
+        $adm->setSurname("Pushka");
+        $adm->setEmail("mk12@epoka.edu.al");
+        $adm ->setAcademicYear("2017");
+
+
         $com = new LostObject();
         $com->setDate(new \DateTime('-3 years'));
         $com->setType("wallet");
         $com->setDescription('black with red lines');
         $com->setLostPlace('A building');
         $com->setPerson($user);
+        $com->setAdmStafflf($adm);
         // ------------------------------------
 
         $com1 = new LostObject();
@@ -48,6 +57,7 @@ class LoadFile implements FixtureInterface
         $com1->setDescription('white with blue lines');
         $com1->setLostPlace('A building');
         $com1->setPerson($user);
+        $com1->setAdmStafflf($adm);
 
 
         $manager->persist($user);
