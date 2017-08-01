@@ -8,8 +8,10 @@ use UserBundle\Entity\AdmStaffLF;
 use UserBundle\Entity\LostObject;
 use UserBundle\Entity\Person;
 
+
 class AdmStaffController extends Controller
 {
+
 
 
     /**
@@ -19,9 +21,8 @@ class AdmStaffController extends Controller
     {
 
 
-
-
         $lost_objects = $admStaffLF->getLostObject();
+
         $lost_list = [];
 
 
@@ -37,7 +38,6 @@ class AdmStaffController extends Controller
                 "isFound"=>$lo->getisFound()
             ];
         }
-
 
 
         $cnt = count($lost_list);
@@ -119,8 +119,6 @@ class AdmStaffController extends Controller
 
 
     }
-
-
 
 
 

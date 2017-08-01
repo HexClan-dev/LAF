@@ -15,6 +15,7 @@ use UserBundle\Entity\AdmStaffLF;
 class AdmStaffRepository extends EntityRepository
 {
 
+
     public function getOneAdministrator()
     {
 

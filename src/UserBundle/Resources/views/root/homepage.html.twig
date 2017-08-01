@@ -24,40 +24,38 @@
 
             <div>
 
-
                 <div class="show_user_details">
 
                 </div>
-
 
                 <div class="default-cotnainer">
 
                     <div id="buttons_menu">
 
-                    {% block personal_details %}
+                        {% block personal_details %}
 
-                        <div id="image">
-                            <img src="{#{{ path(user.image) }}#}" width="50" height="100px" />
-                        </div>
+                            <div id="image">
+                                <img src="{#{{ path(user.image) }}#}" width="50" height="100px" />
+                            </div>
 
-                        <div>
-                            <dl>
-                                <dt>Name</dt>
-                                <dd> {{ user.name }} </dd>
-                                <dt>Surname</dt>
-                                <dd>{{  user.surname }}</dd>
-                                <dt> Department </dt>
-                                <dd> {{ user.department }}</dd>
-                                <dt> Email </dt>
-                                <dd> {{ user.email }} </dd>
-                                <dt> Phone Number</dt>
-                                <dd> {{ user.mobphone }}</dd>
-                            </dl>
+                            <div>
+                                <dl>
+                                    <dt>Name</dt>
+                                    <dd> {{ user.name }} </dd>
+                                    <dt>Surname</dt>
+                                    <dd>{{  user.surname }}</dd>
+                                    <dt> Department </dt>
+                                    <dd> {{ user.department }}</dd>
+                                    <dt> Email </dt>
+                                    <dd> {{ user.email }} </dd>
+                                    <dt> Phone Number</dt>
+                                    <dd> {{ user.mobphone }}</dd>
+                                </dl>
 
-                        </div>
+                            </div>
 
 
-                    {% endblock  %}
+                        {% endblock  %}
 
                     </div>
 
