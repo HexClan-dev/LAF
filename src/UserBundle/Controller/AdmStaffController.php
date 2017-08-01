@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use UserBundle\Entity\AdmStaffLF;
 use UserBundle\Entity\LostObject;
+use UserBundle\Entity\Person;
 
 class AdmStaffController extends Controller
 {
@@ -60,8 +61,6 @@ class AdmStaffController extends Controller
     public function isFoundObject(LostObject $lostObject)
     {
 
-
-
         if(!$lostObject->getisFound())
             $lostObject->setIsFound(true);
         else
@@ -77,20 +76,46 @@ class AdmStaffController extends Controller
             'admin_home_page',
             ['id'=>$adminstaff->getId()]
         );
+
+
     }
 
 
     /**
-     * @Route("/admin/{id}/")
+     * @Route("/admin/{id}", name="show_detailed_submition")
      */
     public function showLostWithDetailsAction(LostObject $lostObject)
     {
 
+        /** @var Person $person */
         $person  = $lostObject->getPerson();
 
+        $list_done = $person->getLostObject();
+
+        $lost_obj = [];
+
+        /** @var LostObject $l */
+        foreach ($list_done as $l)
+        {
+            $lost_obj[]=
+                [
+                    "type"=> $l->getType(),
+                    "description"=> $l->getDescription(),
+                    "lostPlace"=> $l->getLostPlace(),
+                    "lostDate"=> $l->getDate(),
+                    "isFound"=> $l->getisFound()
+                ];
+        }
 
 
-
+        return $this->render(
+            "@User/staff/showDetPerson.html.twig",
+            [
+                "user"=> $person,
+                "list"=> $lost_obj,
+                "cnt"=> count($lost_obj)
+            ]
+        );
 
 
     }

@@ -61,12 +61,23 @@ class userRoleController extends Controller
 
         $form->handleRequest($request);
 
+
         if($form->isSubmitted() && $form->isValid())
         {
+
+            // get the manager
+            $adm = $this->getDoctrine()->getManager()
+                ->getRepository("UserBundle:AdmStaffLF")
+                ->getOneAdministrator();
+
+
             /** @var LostObject $lsobj */
             $lsobj  = $form->getData();
 
+          //  var_dump($adm); die;
+
             $lsobj->setPerson($person);
+            $lsobj->setAdmStafflf($adm);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($lsobj);
@@ -77,6 +88,7 @@ class userRoleController extends Controller
             $redir =  $this->redirectToRoute('user_main_page',[ "id"=> $person->getId() ]);
 
             return $redir;
+
         }
 
 
@@ -117,8 +129,6 @@ class userRoleController extends Controller
 
             return $redir;
         }
-
-
 
 
 

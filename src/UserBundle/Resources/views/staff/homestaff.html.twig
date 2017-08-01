@@ -6,7 +6,7 @@
 
 
 
-{% block user_details %}
+{% block personal_details %}
     <div id="image">
         <img src="{#{{ path(user.image) }}#}" width="50" height="100px" />
     </div>
@@ -54,11 +54,11 @@
             {% else %}
                 {% for list in lostObject %}
                     <tr>
-                        <td> {{ list.type }} </td>
+                        <td> <a > {{ list.type }} </a> </td>
                         <td> {{ list.description }} </td>
                         <td> {{ list.lostPlace }} </td>
                         <td> {{ list.lostDate|date("y/m/d h:i:s") }} </td>
-                         <td>
+                        <td>
                             {% if list.isFound %}
                                 <a href="{{ path('isFound_lost_object',{'id': list.id }) }}"> No </a>
                             {% else %}

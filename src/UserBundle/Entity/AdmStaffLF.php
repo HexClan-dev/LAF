@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints\Date;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="UserBundle\Repository\AdmStaffRepository")
  * @ORM\Table(name="adm_stafflf")
  */
 class AdmStaffLF
