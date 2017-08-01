@@ -1,0 +1,21 @@
+{% extends "@User/root/userview/homepage.html.twig"%}
+
+
+{% block buttons_group %}
+    <a href="{{ path('user_main_page',{"name" : user.id }) }}">Cancel</a>
+{% endblock %}
+
+
+{% block table_show %}
+    {{ form_start(form) }}
+
+        {{ form_row(form.type) }}
+        {{ form_row(form.lostPlace) }}
+        {{ form_row(form.date) }}
+        {{ form_row(form.description) }}
+
+        <button type="submit"><span class="glyphicon glyphicon-send"> </span> Save </button>
+    {{ form_end(form) }}
+
+
+{% endblock %}

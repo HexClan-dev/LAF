@@ -1,0 +1,54 @@
+{% extends "@User/root/userview/homepage.html.twig"%}
+
+
+{% block title %}
+    Welcome {{ user.name }} !!
+{% endblock %}
+
+
+
+{% block personal_details %}
+    {{ parent() }}
+{% endblock  %}
+
+
+{% block table_show %}
+    <table>
+        <thead>
+        <tr>
+            <th> Type </th>
+            <th> Description </th>
+            <th> Lost Place </th>
+            <th> Date </th>
+            <th> Found </th>
+            <th></th>
+        </tr>
+        </thead>
+        {% if cnt == 0 %}
+            <p> You have no lost objects</p>>
+        {% else %}
+            {% for list in lostObject %}
+                <tr>
+                    <td> {{ list.type }} </td>
+                    <td> {{ list.description }} </td>
+                    <td> {{ list.lostPlace }} </td>
+                    <td> {{ list.lostDate|date("y/m/d h:i:s") }} </td>
+                    <td>
+                        {% if list.isFound %}
+                            Yes
+                        {% else %}
+                            No
+                        {% endif %}
+                    </td>
+                    <td><a href="{{ path('edit_lost_form', {'id': list.id }) }}" > Edit </a> <span></span>
+                        <a href="{{ path('delete_lost_form', {'id': list.id }) }}" > Delete </a> </td>
+                </tr>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </table>
+{% endblock %}
+
+

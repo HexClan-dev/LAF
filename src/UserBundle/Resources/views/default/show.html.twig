@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>
+            List from the database
+        </title>
+    </head>
+
+    <body>
+        {% for d in list %}
+            <li> <a href=' {{ path("show_allComments",{"name" : d.name }) }}' > {{ d.name }}  {{ d.surname }} </a> </li>
+        {% endfor %}
+    </body>
+
+</html>

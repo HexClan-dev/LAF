@@ -1,0 +1,25 @@
+<html>
+
+    <body>
+        {% block body %}
+            {%  for com in comments %}
+                <ul>
+                    <li>
+                        {{ com.id }}
+                    </li>
+                    <li>
+                        {{ com.comment }}
+                    </li>
+                    <li>
+                        {{ com.date }}
+                    </li>
+                </ul>
+            {% endfor %}
+
+        {% endblock  %}
+
+
+    </body>
+
+
+</html>
