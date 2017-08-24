@@ -13,7 +13,6 @@ class AdmStaffController extends Controller
 {
 
 
-
     /**
      * @Route("/admin/{id}", name="admin_home_page")
      */
@@ -21,23 +20,10 @@ class AdmStaffController extends Controller
     {
 
 
-        $lost_objects = $admStaffLF->getLostObject();
-
-        $lost_list = [];
+        /** @var LostObject $lost_objects */
 
 
-        /** @var LostObject $lo */
-        foreach ($lost_objects as $lo)
-        {
-            $lost_list[] = [
-                "id"=> $lo->getId(),
-                "type"=> $lo->getType(),
-                "description"=> $lo->getDescription(),
-                "lostPlace"=> $lo->getLostPlace(),
-                "lostDate"=> $lo->getDate(),
-                "isFound"=>$lo->getisFound()
-            ];
-        }
+        $lost_list = $this->getArrayObject($admStaffLF);
 
 
         $cnt = count($lost_list);
@@ -51,6 +37,7 @@ class AdmStaffController extends Controller
                 "cnt"=>$cnt
             ]
         );
+
     }
 
 
@@ -77,12 +64,10 @@ class AdmStaffController extends Controller
             ['id'=>$adminstaff->getId()]
         );
 
-
     }
 
-
     /**
-     * @Route("/admin/{id}", name="show_detailed_submition")
+     * @Route("/admin/{id}/details", name="show_detailed_submition")
      */
     public function showLostWithDetailsAction(LostObject $lostObject)
     {
@@ -90,35 +75,74 @@ class AdmStaffController extends Controller
         /** @var Person $person */
         $person  = $lostObject->getPerson();
 
-        $list_done = $person->getLostObject();
 
-        $lost_obj = [];
 
-        /** @var LostObject $l */
-        foreach ($list_done as $l)
-        {
-            $lost_obj[]=
-                [
-                    "type"=> $l->getType(),
-                    "description"=> $l->getDescription(),
-                    "lostPlace"=> $l->getLostPlace(),
-                    "lostDate"=> $l->getDate(),
-                    "isFound"=> $l->getisFound()
-                ];
-        }
+        $lost_obj = $this->getArrayObject($lostObject->getAdmStaffLF());
 
+      //  var_dump($lost_obj); die;
 
         return $this->render(
             "@User/staff/showDetPerson.html.twig",
             [
                 "user"=> $person,
-                "list"=> $lost_obj,
+                "lostObject"=> $lost_obj,
                 "cnt"=> count($lost_obj)
             ]
         );
 
 
     }
+
+    private function getArrayObject(AdmStaffLF $admStaffLF)
+    {
+        $lost_objects = $admStaffLF->getLostObject();
+
+        $lost_obj = [];
+
+        /** @var LostObject $l */
+        foreach ($lost_objects as $l)
+        {
+            $lost_obj[]=
+                [
+                    "id"=>$l->getId(),
+                    "type"=> $l->getType(),
+                    "description"=> $l->getDescription(),
+                    "lostPlace"=> $l->getLostPlace(),
+                    "lostDate"=> $l->getDate(),
+                    "isFound"=> $l->getisFound(),
+                    "delivered"=>$l->getDelivered()
+                ];
+        }
+
+        return $lost_obj;
+
+    }
+
+
+    /**
+     * @param LostObject $lostObject
+     * @Route("/admin/{id}/delivered", name="is_lost_object_delivered")
+     */
+
+    public function isDeliveredObject(LostObject $lostObject)
+    {
+
+        if($lostObject->getDelivered())
+            $lostObject->setDelivered(false);
+        else $lostObject->setDelivered(true);
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+
+        return $this->redirectToRoute('admin_home_page',
+            [ "id"=>$lostObject->getAdmStaffLF()->getId()]
+        );
+
+
+    }
+
 
 
 

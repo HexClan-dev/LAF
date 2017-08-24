@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use UserBundle\Entity\LostObject;
 use UserBundle\Entity\Person;
 use UserBundle\Form\addLostObject;
@@ -15,11 +16,20 @@ class userRoleController extends Controller
 
 
     /**
+     *
      * @Route("/user/{id}" , name="user_main_page")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function userHomeAction(Person $person)
     {
+
+//        $user =  $this->get('security.context')->getToken()->getUser();
+
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        var_dump($user);
+
+        die;
 
         $lostObjects = $person->getLostObject();
 
@@ -28,15 +38,19 @@ class userRoleController extends Controller
         /** @var LostObject $lost */
 
 
-        foreach ($lostObjects as $lost) {
+        foreach ($lostObjects as $lost)
+        {
+
             $listLost[] = [
                 "id" => $lost->getId(),
                 "type" => $lost->getType(),
                 "description" => $lost->getDescription(),
                 "lostPlace" => $lost->getLostPlace(),
                 "lostDate" => $lost->getDate(),
-                "isFound" => $lost->getisFound()
+                "isFound" => $lost->getisFound(),
+                "delivered"=>$lost->getDelivered()
             ];
+
         }
 
         $cnt = count($listLost);
@@ -165,8 +179,6 @@ class userRoleController extends Controller
         return $this->redirectToRoute("user_main_page",['id'=>$person->getId()]);
 
     }
-
-
 
 
 }

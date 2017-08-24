@@ -12,6 +12,7 @@ namespace UserBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use FOS\UserBundle\Model\User as BaseUser;
 
 
 /**
@@ -31,7 +32,7 @@ class Person implements UserInterface
     /**
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", unique=true)
      */
     private $id;
 
@@ -47,7 +48,7 @@ class Person implements UserInterface
 
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string",unique=true)
      */
     private $email;
 
@@ -96,7 +97,7 @@ class Person implements UserInterface
     private $lostObject;
 
     /**
-     * @ORM\Column(type="json_array", nullable=true)
+     * @ORM\Column(type="json_array", nullable=false)
      */
     private $roles;
 
@@ -270,8 +271,14 @@ class Person implements UserInterface
 
 
 
+    /**@param  string[] $arr */
+    public function setRoles($arr)
+    {
+        $this->roles = $arr;
+    }
+
     /**
-     * @return (Role|string)[] The user roles
+     * @return string[]
      */
     public function getRoles()
     {
@@ -294,7 +301,13 @@ class Person implements UserInterface
      */
     public function getUsername()
     {
-        return $this->getUsername();
+        return $this->email;
+
+    }
+
+    public function setUsername($email)
+    {
+        $this->email= $email;
     }
 
     /**
@@ -302,7 +315,7 @@ class Person implements UserInterface
      */
     public function getSalt()
     {
-        // used only when you have to do with
+        return null;
     }
 
 
@@ -316,5 +329,49 @@ class Person implements UserInterface
     {
         return $this->id." ".$this->name." ".$this->surname." ".$this->email." ".$this->roles." ";
     }
+
+//
+//    /**
+//     * String representation of object
+//     * @link http://php.net/manual/en/serializable.serialize.php
+//     * @return string the string representation of the object or null
+//     * @since 5.1.0
+//     */
+//    public function serialize()
+//    {
+//
+//
+//        return serialize(
+//            array(
+//                $this->id,
+//                $this->email,
+//                $this->password,
+//                $this->roles
+//            )
+//        );
+//
+//
+//    }
+//
+//    /**
+//     * Constructs the object
+//     * @link http://php.net/manual/en/serializable.unserialize.php
+//     * @param string $serialized <p>
+//     * The string representation of the object.
+//     * </p>
+//     * @return void
+//     * @since 5.1.0
+//     */
+//    public function unserialize($serialized)
+//    {
+//
+//        list(
+//            $this->id,
+//            $this->email,
+//            $this->password,
+//            $this->roles
+//            ) = unserialize($serialized);
+//
+//    }
 
 }

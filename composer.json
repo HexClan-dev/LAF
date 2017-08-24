@@ -4,7 +4,6 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "AppBundle\\": "src/AppBundle",
             "UserBundle\\": "src/UserBundle"
         },
         "classmap": [
@@ -13,6 +12,8 @@
         ]
     },
     "require": {
+        "friendsofsymfony/user-bundle": "~2.0@dev",
+        "twitter/bootstrap": "*",
         "php": ">=7.0.18",
         "symfony/symfony": "2.8.*",
         "doctrine/orm": "^2.4.8",
@@ -21,7 +22,9 @@
         "symfony/monolog-bundle": "~2.4",
         "sensio/distribution-bundle": "~5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "incenteev/composer-parameter-handler": "~2.0",
+        "symfony/assetic-bundle": "^2.8",
+        "knpuniversity/guard-bundle": "~0.1@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~3.0",

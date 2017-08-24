@@ -16,6 +16,7 @@ class AdmStaffRepository extends EntityRepository
 {
 
 
+
     public function getOneAdministrator()
     {
 
@@ -26,7 +27,6 @@ class AdmStaffRepository extends EntityRepository
         return $list_admins;
 
     }
-
 
 
 

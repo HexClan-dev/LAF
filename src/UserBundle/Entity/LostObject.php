@@ -62,10 +62,15 @@ class LostObject
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\AdmStaffLF", inversedBy="lostObject",cascade={"persist"})
-     *
+     * @ORM\Column(type="boolean")
      */
-    private $admStafflf;
+    private $delivered= false;
+
+//    /**
+//     * @ORM\ManyToOne(targetEntity="UserBundle\Entity\AdmStaffLF", inversedBy="lostObject",cascade={"persist"})
+//     *
+//     */
+//    private $admStafflf;
 
     /**
      * @return string
@@ -107,14 +112,32 @@ class LostObject
         $this->isFound = $isFound;
     }
 
+//
+//    /**
+//     * @return AdmStaffLF $admStaff[]
+//     */
+//    public function getAdmStaffLF()
+//    {
+//        return $this->admStafflf;
+//    }
 
     /**
-     * @return AdmStaffLF $admStaff[]
+     * @param boolean $delivered
      */
-    public function getAdmStaffLF()
+    public function setDelivered($delivered)
     {
-        return $this->admStafflf;
+        $this->delivered = $delivered;
     }
+
+    /**
+     * @return boolean
+     */
+    public function getDelivered()
+    {
+        return $this->delivered;
+    }
+
+
 
 
     /**
@@ -134,7 +157,7 @@ class LostObject
     }
 
     /**
-     * @return text
+     * @return string
      */
     public function getDescription()
     {

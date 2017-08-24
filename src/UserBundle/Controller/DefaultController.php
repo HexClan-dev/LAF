@@ -12,56 +12,49 @@ use UserBundle\Entity\Person;
 class DefaultController extends Controller
 {
 
-    /**
-     *@Route("/user",name="user_show")
-     */
-    public function indexAction()
-    {
-
-        $em = $this->getDoctrine()->getManager();
-
-        $data = $em ->getRepository(Person::class)
-            ->getUsersFromDB();
-
-
-        return $this->render(
-            "UserBundle:default:show.html.twig",
-               ["list" =>$data]
-            );
-
-    }
-
 
     /**
-     * @Route("/user/{name}/comments", name="show_allComments")
-     *
+     * @Route("/user",name="home_new_test")
+     * @return Response
      */
-    public function showAllUAction(Person $user)
+    public function homeActions()
     {
-        /** @var LostObject $comments */
+/*
+        $sccontent = $this->container->get('security.context');
+        $user = $sccontent->getToken()->getUser();
 
-        $comments = $user->getComments();
+        var_dump($user); die;
 
-        $array = array();
+        $person = $this->getDoctrine()->getManager()->getRepository('UserBundle:Person')->findOneBy(['email'=>$user]);
 
-        /** @var LostObject $cm */
-        foreach ($comments as $cm)
-        {
-            $array[] = [
-                'id'=>$cm->getId(),
-                'comment'=>$cm->getText(),
-                'date'=>$cm->getDate()
+        $lostObjects = $person->getLostObject();
+
+
+        $listLost = [];
+
+
+
+        foreach ($lostObjects as $lost) {
+            $listLost[] = [
+                "id" => $lost->getId(),
+                "type" => $lost->getType(),
+                "description" => $lost->getDescription(),
+                "lostPlace" => $lost->getLostPlace(),
+                "lostDate" => $lost->getDate(),
+                "isFound" => $lost->getisFound(),
+                "delivered"=>$lost->getDelivered()
             ];
         }
 
+        $cnt = count($listLost);
+        return $this->render("UserBundle:user:details.html.twig",
+            [
+                "lostObject"=>$listLost,
+                "user"=>$person,
+                "cnt"=>$cnt
+            ]);*/
 
-        return $this->render(
-            "UserBundle:default:user_com.html.twig",
-            ["comments"=>$array]
-        );
-
+        die;
     }
-
-
 
 }

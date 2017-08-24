@@ -1,4 +1,5 @@
 {% extends "@User/root/homepage.html.twig" %}
+{#{% import "@User/public/styling.html.twig" %}#}
 
 
 {% block title %}
@@ -17,42 +18,53 @@
 {% endblock %}
 
 {% block table_show %}
-    <table>
+    <table class="table table-hover">
+
         <thead>
             <tr>
                 <th> Type </th>
                 <th> Description </th>
                 <th> Lost Place </th>
-                <th> Date </th>
+                <th> Lost Date </th>
                 <th> Found </th>
+                <th> Delivered</th>
                 <th></th>
             </tr>
         </thead>
-    {% if cnt == 0 %}
-        <p> You have no lost objects</p>>
-    {% else %}
-        {% for list in lostObject %}
-            <tr>
-                <td> {{ list.type }} </td>
-                <td> {{ list.description }} </td>
-                <td> {{ list.lostPlace }} </td>
-                <td> {{ list.lostDate|date("y/m/d h:i:s") }} </td>
-                <td>
-                    {% if list.isFound %}
-                        Yes
-                    {% else %}
-                        No
-                    {% endif %}
-                </td>
-                <td><a href="{{ path('edit_lost_form', {'id': list.id }) }}" > Edit </a> <span></span>
-                    <a href="{{ path('delete_lost_form', {'id': list.id }) }}" > Delete </a> </td>
-            </tr>
+        {% if cnt == 0 %}
+            <tr><td colspan="4" style="text-align: center"> You have no lost objects </td></tr>
+        {% else %}
+            {% for list in lostObject %}
+                <tr>
+                    <td> {{ list.type }} </td>
+                    <td> {{ list.description }} </td>
+                    <td> {{ list.lostPlace }} </td>
+                    <td> {{ list.lostDate|date("y/m/d h:i:s") }} </td>
+                    <td>
+                        {% if list.isFound %}
+                            Yes
+                        {% else %}
+                            No
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if list.delivered %}
+                            Yes
+                        {% else %}
+                            No
+                        {% endif %}
+                    </td>
 
-        {% endfor %}
+                    <td><a class="btn btn-info" href="{{ path('edit_lost_form', {'id': list.id }) }}" > <span class="glyphicon glyphicon-pencil">&#160 </span>Edit </a> <span></span>
+                        <a class="btn btn-danger" href="{{ path('delete_lost_form', {'id': list.id }) }}" ><span class="glyphicon glyphicon-trash">&#160</span> Delete </a> </td>
 
-    {% endif %}
+                </tr>
 
-</table>
+            {% endfor %}
+
+        {% endif %}
+
+    </table>
 {% endblock %}
 
 

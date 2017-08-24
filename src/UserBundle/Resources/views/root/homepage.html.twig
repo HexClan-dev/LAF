@@ -7,63 +7,171 @@
             {% block title %}
             {% endblock %}
         </title>
+
+
+        <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/bootstrap.js') }}"></script>
+        <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/bower.json') }}"></script>
+        <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/gulpfile.js') }}"></script>
+        <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/kube.js') }}"></script>
+        <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/materialize.js') }}"></script>
+
+
+        <link rel="stylesheet" href="{{ asset('/bundles/user/css/bootstrap.css') }}" />
+    {#    <link rel="stylesheet" href="{{ asset('/bundles/user/css/bulma.css') }}" />
+        <link rel="stylesheet" href="{{ asset('/bundles/user/css/kube.css') }}" />
+    #}    <style type="text/css" rel="stylesheet">
+
+
+            #table_with_lists{
+/*                padding: 20px 20px 20px 20px;*/
+                min-height: 500px;
+            }
+
+            .img-container{
+                padding-bottom: 100px;
+            }
+
+            .footer{
+                position:fixed;
+                top:97%;;
+                left:2%;
+            }
+
+            .personal-details
+            {
+                width: 40%;
+                float: left;
+                padding-left: 50px;
+                min-width: 500px;
+            }
+
+            .container-main
+            {
+
+                position: absolute;
+                left:23%;
+                width: 70%;
+                padding-top: 5%;
+                padding-left: 10px;
+                text-align: center;
+
+            }
+
+            .show_user_details{
+                width: 100px;
+            }
+            .profile-img{
+
+
+                width: 100%;
+                /*width:120px;
+                height:150px;*/
+                padding: 10px 10px 10px 10px ;
+
+            }
+            .personal-detail-panel{
+                background-color: lightyellow;
+            }
+
+            .card {
+                /* Add shadows to create the "card" effect */
+                box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+                transition: 0.3s;
+            }
+
+            /* On mouse-over, add a deeper shadow */
+            .card:hover {
+                box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+            }
+
+            /* Add some padding inside the card container */
+            .container-details {
+                padding: 2px 16px;
+            }
+
+        </style>
+
     </head>
 
     <body>
 
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">Lost and Found</a>
+            </div>
+            <ul class="nav navbar-nav" >
+                <li class="active"><a href="#">Home</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="{{ path('logout') }}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+
         <header>
 
+
             {%  if app.session.flashBag.has('success') %}
-
-            {% else %}
-
+                <div class="alert alert-success aria-label='close'">
+                    {% for msg in app.session.flashBag.get('success') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
             {% endif %}
 
+
         </header>
-        <div>
 
-            <div>
+    <div class="personal-details panel-group">
+        <div class="personal-detail-panel col-xs-6 panel panel-default card">
 
-                <div class="show_user_details">
+
+            {% block personal_details %}
+
+                <div id="image">
+                    <img class="img-rounded profile-img" src="{{ asset('/bundles/user/person/images/'~user.image) }}" />
+                </div>
+
+                <div class="container-details">
+                    <dl>
+
+                        <dt>Name</dt>
+                        <dd> {{ user.name }} </dd>
+                        <dt>Surname</dt>
+                        <dd> {{ user.surname }} </dd>
+                        <dt> Department </dt>
+                        <dd> {{ user.department }}</dd>
+                        <dt> Email </dt>
+                        <dd> {{ user.email }} </dd>
+                        <dt> Phone Number</dt>
+                        <dd> {{ user.mobphone }}</dd>
+
+                    </dl>
 
                 </div>
 
-                <div class="default-cotnainer">
 
-                    <div id="buttons_menu">
+            {% endblock  %}
 
-                        {% block personal_details %}
+        </div>
+    </div>
 
-                            <div id="image">
-                                <img src="{#{{ path(user.image) }}#}" width="50" height="100px" />
-                            </div>
+        <div class="container-main">
 
-                            <div>
-                                <dl>
-                                    <dt>Name</dt>
-                                    <dd> {{ user.name }} </dd>
-                                    <dt>Surname</dt>
-                                    <dd>{{  user.surname }}</dd>
-                                    <dt> Department </dt>
-                                    <dd> {{ user.department }}</dd>
-                                    <dt> Email </dt>
-                                    <dd> {{ user.email }} </dd>
-                                    <dt> Phone Number</dt>
-                                    <dd> {{ user.mobphone }}</dd>
-                                </dl>
+            <div class="panel-group">
 
-                            </div>
+                <div class="default-cotnainer panel panel-default">
 
-
-                        {% endblock  %}
-
-                    </div>
-
-                    <div class="container buttons">
+                    <div class="image img-container"> <img src="{{ asset('/bundles/user/images/lostandfound.jpeg') }}" class="img-rounded"> </div>
+                    <div class="container2 buttons col-xs-3">
 
                         {% block buttons_group %}
 
                         {% endblock %}
+
                     </div>
 
                     <div id="table_with_lists">
@@ -82,6 +190,8 @@
 
         </div>
 
+
+        <div class="footer page-footer"><small><div class="footer-inline"> <p class="text-muted">2014 -2018 &#169; Epoka University, ICTC Office</p> </div></small> </div>
 
     </body>
 

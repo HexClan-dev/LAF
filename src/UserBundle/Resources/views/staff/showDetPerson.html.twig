@@ -1,1 +1,37 @@
 {% extends "@User/user/details.html.twig" %}
+
+
+{% block buttons_group %}
+
+{% endblock %}
+
+{% block table_show %}
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th> Type </th>
+            <th> Description </th>
+            <th> Lost Place </th>
+            <th> Lost Date </th>
+            <th> Found </th>
+            <th> Delivered </th>
+            <th></th>
+        </tr>
+        </thead>
+        {% if cnt == 0 %}
+            <p> You have no lost objects</p>>
+        {% else %}
+            {% for list in lostObject %}
+                <tr>
+                    <td> {{ list.type }} </td>
+                    <td> {{ list.description }} </td>
+                    <td> {{ list.lostPlace }} </td>
+                    <td> {{ list.lostDate|date("y/m/d h:i:s") }} </td>
+                </tr>
+
+            {% endfor %}
+
+        {% endif %}
+
+    </table>
+{% endblock %}

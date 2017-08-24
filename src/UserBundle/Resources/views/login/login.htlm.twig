@@ -1,0 +1,71 @@
+<html>
+<head>
+
+
+    <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/bootstrap.js') }}"></script>
+    <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/bower.json') }}"></script>
+    <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/gulpfile.js') }}"></script>
+    <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/kube.js') }}"></script>
+    <script rel="script" type="text/javascript" src="{{ asset('/bundles/user/js/materialize.js') }}"></script>
+
+
+    <link rel="stylesheet" href="{{ asset('/bundles/user/css/bootstrap.css') }}" />
+
+    <style type="text/css" rel="stylesheet">
+
+        .align{
+            align-items: center;
+            align-content: center;
+            position: absolute;
+            top:20%;
+            left:30%;
+        }
+
+        .group{
+
+            border-radius: 12%;
+            background-color: lightblue;
+            width: 400px;
+            height: 250px;
+
+        }
+        .main{
+            padding-top:16px;
+        }
+
+        body{
+            background-color: lightgray;
+        }
+
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="container group align">
+
+    <div class="error">
+        {% if error %}
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
+    </div>
+
+    <div class="main col-xs-12">
+
+        {{ form_start(form) }}
+            <div class="tasks">
+                {{ form_row(form.username) }}
+                {{ form_row(form.password) }}
+
+                <button class="btn btn-success" type="submit"><span class="fa fa-lock"></span>Login</button>
+            </div>
+        {{ form_end(form) }}
+
+    </div>
+
+</div>
+
+</body>
+</html>

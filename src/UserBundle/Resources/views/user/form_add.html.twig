@@ -1,21 +1,30 @@
 {% extends "@User/root/homepage.html.twig"%}
 
-
 {% block buttons_group %}
     <a href="{{ path('user_main_page',{'id' : user.id }) }}">Cancel</a>
 {% endblock %}
 
 
 {% block table_show %}
-    {{ form_start(form) }}
 
-        {{ form_row(form.type) }}
-        {{ form_row(form.lostPlace) }}
-        {{ form_row(form.date) }}
-        {{ form_row(form.description) }}
+    <div class="container-fluid col-xs-4">
 
-        <button type="submit"><span class="glyphicon glyphicon-send"> </span> Add </button>
-    {{ form_end(form) }}
+        <div class="form">
+        {{ form_start(form) }}
 
+
+
+            <div class="form-group">
+                {{ form_row(form.type) }}
+                {{ form_row(form.lostPlace) }}
+                {{ form_row(form.date) }}
+                {{ form_row(form.description) }}
+            </div>
+                <button type="submit"><span class="glyphicon glyphicon-send"> </span> Add </button>
+
+        {{ form_end(form) }}
+        </div>
+        <div></div>
+    </div>
 
 {% endblock %}

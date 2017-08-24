@@ -17,15 +17,21 @@ class addLostObject extends AbstractType
 
         // Type is the objects that the schools is responsible for
 
-        $builder->add('type', ChoiceType::class, array(
-            'choices'  => array(
-                'Select one Option' => null,
-                'Wallet' => "Wallet",
-                'Clothes' => "Clothes")
-            ))
+        $builder->add('type')
             ->add("lostPlace",TextareaType::class)
-            ->add("date", DateTimeType::class)
-            ->add("description", TextareaType::class);
+            ->add("date", DateTimeType::class,array(
+                'label'=>'Lost Date',
+                'attr'   =>  array(
+                    'class'   => ''),
+                'placeholder' => array(
+                    'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
+                    'hour' => 'Hour', 'minute' => 'Minute', 'second' => 'Second',
+                )))
+            ->add("description", TextareaType::class,[
+                'attr'=> array(
+                    'height'=> '50px'
+                )
+            ]);
 
         return $builder;
     }
